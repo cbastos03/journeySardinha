@@ -1,5 +1,6 @@
 package org.academiadecodigo.bootcamp;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -36,6 +37,8 @@ public class Grid {
 
     public void init(){
         canvas.draw();
+        frameLeft.setColor(Color.BLACK);
+        frameRight.setColor(Color.BLACK);
         frameLeft.fill();
         frameRight.fill();
 

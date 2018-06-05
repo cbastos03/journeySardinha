@@ -5,15 +5,15 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by codecadet on 05/06/2018.
  */
-public class EnemiesMoving extends Enemies{
-    private Picture picture;
+public class EnemiesMoving extends Enemies {
+
 
     public EnemiesMoving(int speed, EnemiesType enemiesType, Grid grid) {
         super(speed, enemiesType, grid);
-        int positionY = (int)(Math.random() * getGrid().getCanvas().getHeight());
+        int positionY = (int) (Math.random() * getGrid().getCanvas().getHeight());
         int positionX = getGrid().getCanvas().getWidth();
-        picture = new Picture(positionX, positionY, "resources/MovingEnemy.png");
-        picture.draw();
+        super.setPicture(new Picture(positionX, positionY, "resources/catarina.png"));
+        super.getPicture().draw();
     }
 
     @Override
@@ -21,10 +21,6 @@ public class EnemiesMoving extends Enemies{
 
     }
 
-    @Override
-    public Picture getPicture() {
-        return super.getPicture();
-    }
 
     @Override
     public void changeDirection() {
@@ -32,15 +28,22 @@ public class EnemiesMoving extends Enemies{
     }
 
     @Override
-    public void accelerate(int speed) {
+    public void accelerate() {
 
-        for (int i = 0; i < speed; i++) {
-            if(picture.getY() <= 0 || picture.getY() >= getGrid().getCanvas().getHeight()){
-                this.changeDirection();
-            }
-            picture.translate(super.getDirectionX(), super.getDirectionY());
+        if(getPicture().getX() < 2*getGrid().PADDING){
+            return;
         }
 
+        for (int i = 0; i < super.getSpeed(); i++) {
+
+
+            if (getPicture().getY() <= getGrid().PADDING || getPicture().getY() >= getGrid().getCanvas().getHeight()-getPicture().getHeight()) {
+                this.changeDirection();
+            }
+            getPicture().translate(super.getDirectionX(), super.getDirectionY());
+        }
     }
 
 }
+
+

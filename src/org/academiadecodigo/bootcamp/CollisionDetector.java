@@ -7,6 +7,12 @@ public class CollisionDetector {
 
     private Enemies[] enemies;
     private Player player;
+
+    public CollisionDetector(Enemies[] enemies, Player player) {
+        this.enemies = enemies;
+        this.player = player;
+    }
+
     private double xmediumPlayer;
     private double ymediumPlayer;
     private double radiusPlayer;

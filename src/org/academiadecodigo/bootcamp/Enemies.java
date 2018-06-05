@@ -8,6 +8,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public abstract class Enemies {
 
     private Picture picture;
+
     private Grid grid;
 
     private int speed;
@@ -27,6 +28,10 @@ public abstract class Enemies {
 
     public Picture getPicture() {
         return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public void changeDirection(){        //TODO check if this has to return anything
@@ -55,6 +60,6 @@ public abstract class Enemies {
         return directionY;
     }
 
-    public abstract void accelerate(int speed);
+    public abstract void accelerate();
 
 }
