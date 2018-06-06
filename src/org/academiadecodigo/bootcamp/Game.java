@@ -31,6 +31,8 @@ public class Game {
         while (!collisionDetector.check()) {
             Thread.sleep(50);
 
+            player.movePlayer();
+
             for (int i = 0; i < enemies.length; i++) {
 
                 for (int j = 0; j < enemies[i].getSpeed(); j++) {

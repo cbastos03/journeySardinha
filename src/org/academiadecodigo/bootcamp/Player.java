@@ -16,13 +16,14 @@ public class Player implements KeyboardHandler {
     private Picture picture;
     private boolean isDead;
     private boolean spaceState;
-    private int speed = 40;
+    private int speed = 20;
+    private Directions directions;
 
     public Player(Grid grid) {
-        picture = new Picture(200,grid.getCanvas().getHeight() / 2, "resources/fish-right.png");
+        picture = new Picture(200, grid.getCanvas().getHeight() / 2, "resources/fish-right.png");
         this.grid = grid;
         picture.draw();
-
+        directions = Directions.NODIRECTION;
         initKeyboard();
     }
 
@@ -81,20 +82,40 @@ public class Player implements KeyboardHandler {
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(down);
 
+        KeyboardEvent downRelease = new KeyboardEvent();
+        downRelease.setKey(KeyboardEvent.KEY_DOWN);
+        downRelease.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        keyboard.addEventListener(downRelease);
+
         KeyboardEvent up = new KeyboardEvent();
         up.setKey(KeyboardEvent.KEY_UP);
         up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(up);
+
+        KeyboardEvent upRelease = new KeyboardEvent();
+        upRelease.setKey(KeyboardEvent.KEY_UP);
+        upRelease.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        keyboard.addEventListener(upRelease);
 
         KeyboardEvent left = new KeyboardEvent();
         left.setKey(KeyboardEvent.KEY_LEFT);
         left.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(left);
 
+        KeyboardEvent leftRelease = new KeyboardEvent();
+        leftRelease.setKey(KeyboardEvent.KEY_LEFT);
+        leftRelease.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        keyboard.addEventListener(leftRelease);
+
         KeyboardEvent right = new KeyboardEvent();
         right.setKey(KeyboardEvent.KEY_RIGHT);
         right.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(right);
+
+        KeyboardEvent rightRelease = new KeyboardEvent();
+        rightRelease.setKey(KeyboardEvent.KEY_RIGHT);
+        rightRelease.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
+        keyboard.addEventListener(rightRelease);
 
         KeyboardEvent space = new KeyboardEvent();
         space.setKey(KeyboardEvent.KEY_SPACE);
@@ -106,6 +127,7 @@ public class Player implements KeyboardHandler {
         releasedSpace.setKeyboardEventType(KeyboardEventType.KEY_RELEASED);
         keyboard.addEventListener(releasedSpace);
 
+
     }
 
 
@@ -114,19 +136,19 @@ public class Player implements KeyboardHandler {
 
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_DOWN:
-                moveDown(speed);
+                directions = Directions.DOWN;
                 break;
             case KeyboardEvent.KEY_UP:
-                moveUp(speed);
+                directions = Directions.UP;
                 break;
             case KeyboardEvent.KEY_LEFT:
-                moveLeft(speed);
+                directions = Directions.LEFT;
                 break;
             case KeyboardEvent.KEY_RIGHT:
-                moveRight(speed);
+                directions = Directions.RIGHT;
                 break;
             case KeyboardEvent.KEY_SPACE:
-                speed = 80;
+                speed = 40;
 
         }
 
@@ -136,9 +158,31 @@ public class Player implements KeyboardHandler {
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
         if (keyboardEvent.getKey() == KeyboardEvent.KEY_SPACE) {
-            speed = 40;
-
+            speed = 20;
+        } else {
+            directions = Directions.NODIRECTION;
         }
 
+
     }
+
+    public void movePlayer() {
+        switch (directions) {
+            case LEFT:
+                moveLeft(speed);
+                break;
+            case RIGHT:
+                moveRight(speed);
+                break;
+            case UP:
+                moveUp(speed);
+                break;
+            case DOWN:
+                moveDown(speed);
+                break;
+            case NODIRECTION:
+                return;
+        }
+    }
+
 }
