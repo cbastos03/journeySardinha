@@ -9,21 +9,16 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
  */
 public class Grid {
 
-    public final int PADDING = 10;
+    public final int PADDING = 0;
 
     private Rectangle canvas;
 
-    private Rectangle frameRight;
-
-    private Rectangle frameLeft;
 
 
 
 
     public Grid(int width, int height, int widthFrame) {
         this.canvas = new Rectangle(PADDING,PADDING,width,height);
-        this.frameRight = new Rectangle(width - widthFrame + PADDING, PADDING, widthFrame, height);
-        this.frameLeft = new Rectangle(PADDING, PADDING, widthFrame, height);
 
         Picture lisboa = new Picture(PADDING,PADDING,"resources/lisboa.jpg");
         lisboa.draw();
@@ -37,10 +32,7 @@ public class Grid {
 
     public void init(){
         canvas.draw();
-        frameLeft.setColor(Color.BLACK);
-        frameRight.setColor(Color.BLACK);
-        frameLeft.fill();
-        frameRight.fill();
+
 
     }
 
@@ -49,11 +41,5 @@ public class Grid {
         return canvas;
     }
 
-    public Rectangle getFrameRight() {
-        return frameRight;
-    }
 
-    public Rectangle getFrameLeft() {
-        return frameLeft;
-    }
 }

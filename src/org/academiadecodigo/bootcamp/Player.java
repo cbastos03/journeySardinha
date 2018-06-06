@@ -19,7 +19,7 @@ public class Player implements KeyboardHandler {
     private int speed = 40;
 
     public Player(Grid grid, int width, int height) {
-        picture = new Picture(width, height, "resources/sardinha.png");
+        picture = new Picture(width, height, "resources/fish-right.png");
         this.grid = grid;
         picture.draw();
 
@@ -40,34 +40,34 @@ public class Player implements KeyboardHandler {
 
     public void moveDown(int speed) {
 
-        if(picture.getY() + speed + picture.getHeight() >= grid.getFrameLeft().getHeight()){
+        if (picture.getY() + speed + picture.getHeight() >= grid.getCanvas().getHeight()) {
             return;
         }
-
+        picture.load("resources/fish-down.png");
         picture.translate(0, speed);
     }
 
     public void moveUp(int speed) {
-        if(picture.getY() - speed <= grid.PADDING){
+        if (picture.getY() - speed <= grid.PADDING) {
             return;
         }
-
+        picture.load("resources/fish-up.png");
         picture.translate(0, -speed);
     }
 
     public void moveLeft(int speed) {
-        if(picture.getX() - speed <= grid.getFrameLeft().getWidth()){
+        if (picture.getX() - speed <= grid.PADDING) {
             return;
         }
-
+        picture.load("resources/fish-left.png");
         picture.translate(-speed, 0);
     }
 
     public void moveRight(int speed) {
-        if(picture.getX() + speed + picture.getWidth() >= grid.getFrameRight().getX()){
+        if (picture.getX() + speed + picture.getWidth() >= grid.getCanvas().getWidth()) {
             return;
         }
-
+        picture.load("resources/fish-right.png");
         picture.translate(speed, 0);
     }
 

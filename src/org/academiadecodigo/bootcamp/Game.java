@@ -7,4 +7,12 @@ public class Game {
 
 
 
+    Grid grid = new Grid(1024, 576, 110);
+
+    //grid.init();
+
+    Player player = new Player(grid, 500, 256);
+
+
+
 }
