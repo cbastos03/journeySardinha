@@ -18,8 +18,8 @@ public class Player implements KeyboardHandler {
     private boolean spaceState;
     private int speed = 40;
 
-    public Player(Grid grid, int width, int height) {
-        picture = new Picture(width, height, "resources/fish-right.png");
+    public Player(Grid grid) {
+        picture = new Picture(200,grid.getCanvas().getHeight() / 2, "resources/fish-right.png");
         this.grid = grid;
         picture.draw();
 

@@ -19,9 +19,15 @@ public abstract class Enemies {
     public Enemies(int speed, EnemiesType enemiesType, Grid grid) {
         this.speed = speed;
         this.enemiesType = enemiesType;
-        this.directionX = -1;                               // 1 pixel to the left
-        this.directionY = (int)(Math.random() * 10 - 5);     //Random change in y pixels between -3 and 3
         this.grid = grid;
+    }
+
+    public void setDirectionX(int directionX) {
+        this.directionX = directionX;
+    }
+
+    public void setDirectionY(int directionY) {
+        this.directionY = directionY;
     }
 
     public abstract void move();

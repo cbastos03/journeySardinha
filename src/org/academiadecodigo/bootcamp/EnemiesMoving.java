@@ -8,12 +8,15 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class EnemiesMoving extends Enemies {
 
 
-    public EnemiesMoving(int speed, EnemiesType enemiesType, Grid grid) {
-        super(speed, enemiesType, grid);
+    public EnemiesMoving(int speed, Grid grid) {
+        super(speed, EnemiesType.MOVING, grid);
         int positionY = (int) (Math.random() * getGrid().getCanvas().getHeight());
         int positionX = getGrid().getCanvas().getWidth();
-        super.setPicture(new Picture(positionX, positionY, "resources/catarina.png"));
+        super.setDirectionX(-1);                              // 1 pixel to the left
+        super.setDirectionY((int)(Math.random() * 10 - 5));    //Random change in y pixels between -3 and 3
+        super.setPicture(new Picture(positionX, positionY, "resources/faustino-2.png"));
         super.getPicture().draw();
+
     }
 
     @Override
@@ -30,9 +33,9 @@ public class EnemiesMoving extends Enemies {
     @Override
     public void accelerate() {
 
-        if(getPicture().getX() < 2*getGrid().PADDING){
-            return;
-        }
+       // if(getPicture().getX() < 2*getGrid().PADDING){
+         //   return;
+       // }
 
         for (int i = 0; i < super.getSpeed(); i++) {
 
