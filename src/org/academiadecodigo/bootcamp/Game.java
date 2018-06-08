@@ -28,7 +28,22 @@ public class Game {
         grid.init();
 
 
-        while (!collisionDetector.check()) {
+        Thread.sleep(1000);
+        grid.makeWin();
+        Thread.sleep(1000);
+        grid.removeWin();
+        grid.changeBackground(2);
+
+        while(true){
+            Thread.sleep(80);
+            grid.redrawOcean();
+            grid.moveAnimations();
+            grid.moveGround();
+            //grid.moveOcean();
+        }
+
+
+        /*while (!collisionDetector.check()) {
             Thread.sleep(50);
 
             player.movePlayer();
@@ -43,7 +58,7 @@ public class Game {
 
             }
 
-        }
+        }*/
     }
 
 
