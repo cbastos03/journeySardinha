@@ -36,7 +36,7 @@ public class Grid {
 
         backgrounds[0].draw();
 
-        ocean = new Picture(PADDING,0, "resources/ocean.png");
+        ocean = new Picture(PADDING,0, "resources/grid/backgrounds/ocean.png");
 
         win = new Picture(canvas.getWidth()/2,canvas.getHeight()/2,"resources/grid/win.png");
 

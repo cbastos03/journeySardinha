@@ -1,5 +1,6 @@
-package org.academiadecodigo.bootcamp;
+package org.academiadecodigo.bootcamp.enemies;
 
+import org.academiadecodigo.bootcamp.Grid;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
@@ -14,7 +15,7 @@ public class EnemiesMoving extends Enemies {
         int positionX = getGrid().getCanvas().getWidth();
         super.setDirectionX(-1);                              // 1 pixel to the left
         super.setDirectionY((int)(Math.random() * 10 - 5));    //Random change in y pixels between -3 and 3
-        super.setPicture(new Picture(positionX, positionY, "resources/faustino-2.png"));
+        super.setPicture(new Picture(positionX, positionY, "resources/enemies/faustino-2.png"));
         super.getPicture().draw();
 
     }

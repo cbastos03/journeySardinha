@@ -1,5 +1,6 @@
-package org.academiadecodigo.bootcamp;
+package org.academiadecodigo.bootcamp.enemies;
 
+import org.academiadecodigo.bootcamp.Grid;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**

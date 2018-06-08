@@ -1,5 +1,8 @@
-package org.academiadecodigo.bootcamp;
+package org.academiadecodigo.bootcamp.enemies;
 
+import org.academiadecodigo.bootcamp.Grid;
+import org.academiadecodigo.bootcamp.enemies.Enemies;
+import org.academiadecodigo.bootcamp.enemies.EnemiesType;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
@@ -13,7 +16,7 @@ public class EnemiesStraight extends Enemies {
         int positionX = getGrid().getCanvas().getWidth();
         super.setDirectionX(-1);                              // 1 pixel to the left
         super.setDirectionY(0);    //Random change in y pixels between -3 and 3
-        super.setPicture(new Picture(positionX, positionY, "resources/catarina.png"));
+        super.setPicture(new Picture(positionX, positionY, "resources/enemies/œœœœœœœœcatarina.png"));
         super.getPicture().draw();
     }
 

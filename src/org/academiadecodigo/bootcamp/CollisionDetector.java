@@ -1,5 +1,8 @@
 package org.academiadecodigo.bootcamp;
 
+import org.academiadecodigo.bootcamp.enemies.Enemies;
+import org.academiadecodigo.bootcamp.player.Player;
+
 /**
  * Created by codecadet on 04/06/2018.
  */

@@ -1,4 +1,4 @@
-package org.academiadecodigo.bootcamp;
+package org.academiadecodigo.bootcamp.player;
 
 /**
  * Created by codecadet on 06/06/2018.
