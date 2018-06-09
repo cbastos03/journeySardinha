@@ -5,6 +5,7 @@ import org.academiadecodigo.bootcamp.keyboard.MyKeyboard;
 import org.academiadecodigo.bootcamp.player.Player;
 import org.academiadecodigo.bootcamp.sound.Sound;
 import org.academiadecodigo.bootcamp.sound.SoundClips;
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 
 /**
  * Created by codecadet on 04/06/2018.
@@ -15,89 +16,64 @@ public class Game {
     private Enemies[] enemies;
     private Grid grid;
     private CollisionDetector collisionDetector;
-    private MyKeyboard myKeyboard;
+    private Factory factory;
+    private AwakingEnemies awakingEnemies = new AwakingEnemies();
+    private int currentLevel = 1;
+    private MyKeyboard keyboard;
+    private Menu menu;
 
-    public Game() {
-        myKeyboard = new MyKeyboard(this);
-        myKeyboard.keyboardInit();
+    public Game(){
+        keyboard = new MyKeyboard(this);
+        initMenu();
     }
 
 
-
-    public void init() throws InterruptedException {
-
-
-
-        grid = new Grid(1024, 576, 110);
-
-        //grid.init();
-        grid.redraw();
-        Factory factory = new Factory();
-        player = factory.getPlayer(grid);
-        enemies = new Enemies[400];
-        boolean isOver = false;
-
-        myKeyboard.setKeyboardable(player);
-
-        for (int i = 0; i < enemies.length; i++) {
-            enemies[i] = factory.generateEnemies(grid);
-        }
-        collisionDetector = new CollisionDetector(enemies, player);
-        grid.redrawOcean();
-
-        AwakingEnemies awakingEnemies = new AwakingEnemies();
-        awakingEnemies.awake(enemies[0]);
-        int counter = 0;
-
-        Sound.play(SoundClips.FUNDAO.getFile(),10);
-
-        while (!collisionDetector.check() && isOver == false) {
-
-            Thread.sleep(50);
-
-            grid.moveAnimations();
-            grid.moveGround();
-            player.movePlayer();
-
-
-            for (int i = 0; i < enemies.length; i++) {
-
-
-                if (counter > 400) {
-
-                    counter = 0;
-
-                    if (awakingEnemies.enemiesAwake < enemies.length) {
-                        System.out.println("Enemy " + awakingEnemies.enemiesAwake + " acordou");
-                        System.out.println("Enemy " + awakingEnemies.enemiesAwake + " acordou");
-                        awakingEnemies.awake(enemies[awakingEnemies.enemiesAwake]);
-                    }
-                }
-
-                for (int j = 0; j < enemies[i].getSpeed(); j++) {
-
-                    enemies[i].accelerate();
-                    collisionDetector.check();
-                    counter++;
-
-                    System.out.println(counter);
-
-
-                }
-
-            }
-            for (Enemies c : enemies) {
-                if (c.getPicture().getX() > 0) {
-                    isOver = false;
-                    break;
-                } else {
-                    isOver = true;
-                }
-            }
-
-
-        }
+    public void initMenu(){
+        menu = new Menu(this);
+        keyboard.setKeyboardable(menu);
+        menu.loadResources();
     }
+
+
+    public void initGame() throws InterruptedException {
+
+        //menu.getMenuPictures()[0].delete();
+
+        menu.deleteImages();
+
+
+        grid = new Grid(1024, 576);
+
+        factory = new Factory();
+
+        Levels levels = new Levels();
+
+
+        levels.level(20,1500);
+
+        if(collisionDetector.isCollision()){
+            return;
+        }
+        grid.makeWin();
+        Thread.sleep(5000);
+        levels.levelClean(1);
+        currentLevel++;
+        levels.level(40, 300);
+
+        if(collisionDetector.isCollision()){
+            return;
+        }
+
+        currentLevel++;
+        grid.makeWin();
+        Thread.sleep(5000);
+        levels.levelClean(2);
+        levels.level(500, 300);
+
+
+    }
+
+
 
     private class AwakingEnemies {
 
@@ -108,12 +84,105 @@ public class Game {
             enemy.setSleep();
             enemiesAwake++;
 
-            if (enemiesAwake > 3) {
+            if(enemiesAwake> 3 && currentLevel !=3){
                 grid.removeBackground();
+
             }
 
         }
     }
+
+    private class Levels{
+
+        private boolean isOver = false;
+        private int counter = 0;
+
+        public void reload(int numOfEnemies){
+
+
+            player = factory.getPlayer(grid);
+
+            keyboard.setKeyboardable(player);
+
+            enemies = new Enemies[numOfEnemies];
+            isOver = false;
+            collisionDetector = new CollisionDetector(enemies, player);
+            counter = 0;
+            for (int i = 0; i < enemies.length; i++) {
+                enemies[i] = factory.generateEnemies(grid);
+            }
+            grid.redrawOcean();
+            awakingEnemies.awake(enemies[0]);
+        }
+
+        public void levelClean(int level){
+            for(Enemies enemy : enemies){
+                enemy.getPicture().delete();
+            }
+            awakingEnemies.enemiesAwake = 0;
+            player.getPicture().delete();
+            grid.changeBackground(level+1);
+            grid.removeWin();
+
+        }
+
+
+        public void level(int numOfEnemies, int counterLimit) throws InterruptedException {
+
+            reload(numOfEnemies);
+
+            grid.redraw();
+
+            while (!collisionDetector.check() && !isOver) {
+
+                Thread.sleep(50);
+
+                grid.moveAnimations();
+                grid.moveGround();
+                player.movePlayer();
+
+
+                for (int i = 0; i < enemies.length; i++) {
+
+
+                    if (counter > counterLimit) {
+
+                        counter = 0;
+
+                        if (awakingEnemies.enemiesAwake < enemies.length) {
+
+                            awakingEnemies.awake(enemies[awakingEnemies.enemiesAwake]);
+                        }
+                    }
+
+                    for (int j = 0; j < enemies[i].getSpeed(); j++) {
+
+                        enemies[i].accelerate();
+                        collisionDetector.check();
+                        counter++;
+
+                        //System.out.println(counter);
+
+                    }
+
+                }
+                for (Enemies c : enemies) {
+
+                    if (c.getPicture().getX() > 0) {
+
+                        isOver = false;
+                        break;
+
+                    } else {
+
+                        isOver = true;
+
+                    }
+                }
+
+            }
+
+        }
+
+    }
 }
-
-

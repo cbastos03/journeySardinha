@@ -10,6 +10,7 @@ public class CollisionDetector {
 
     private Enemies[] enemies;
     private Player player;
+    private boolean collision;
 
     public CollisionDetector(Enemies[] enemies, Player player) {
         this.enemies = enemies;
@@ -26,7 +27,9 @@ public class CollisionDetector {
 
     private double centersDistance;
 
-
+    public boolean isCollision() {
+        return collision;
+    }
 
 
     public boolean check() {
@@ -44,6 +47,9 @@ public class CollisionDetector {
             centersDistance = centerDistance(enemy);
 
             if(centersDistance < (radiusPlayer + radiusEnemy)){
+                collision = true;
+                player.setIsdead(true);
+                player.getPicture().load("resources/player/DeadFish-RIGHT.png");
                 return true;
             }
 

@@ -17,7 +17,13 @@ public interface Keyboardable {
 
     void keySpaceRelease();
 
-    void othersRelease();
+    void keyDownRelease();
+
+    void keyUpRelease();
+
+    void keyLeftRelease();
+
+    void keyRightRelease();
 
 
 }

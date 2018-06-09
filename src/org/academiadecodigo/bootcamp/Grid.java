@@ -12,7 +12,7 @@ public class Grid {
     public final int PADDING = 0;
 
     private Rectangle canvas;
-    private Picture[] backgrounds = new Picture[2];
+    private Picture[] backgrounds = new Picture[3];
     private Picture[] ground = new Picture[4];
     private Picture[] animations = new Picture[1];
     private int animationIndex = 0;
@@ -24,7 +24,7 @@ public class Grid {
 
 
 
-    public Grid(int width, int height, int widthFrame) {
+    public Grid(int width, int height) {
 
         this.canvas = new Rectangle(PADDING,PADDING,width,height);
 
@@ -80,13 +80,7 @@ public class Grid {
             ground[counter].draw();
             counter++;
         }
-
-    }
-
-    public void init(){
-
-        canvas.draw();
-
+        redrawOcean();
     }
 
     public void changeAnimations(){
@@ -95,7 +89,6 @@ public class Grid {
         if(animationIndex>= animations.length){
             animationIndex = 0;
         }
-
     }
 
     public void changeGround() {
@@ -105,14 +98,11 @@ public class Grid {
         if (groundIndex >= ground.length) {
             groundIndex = 0;
         }
-
     }
 
     public void redrawOcean(){
-
         ocean.delete();
         ocean.draw();
-
     }
 
 

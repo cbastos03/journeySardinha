@@ -3,6 +3,8 @@ package org.academiadecodigo.bootcamp;
 import org.academiadecodigo.bootcamp.keyboard.Keyboardable;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import java.io.IOException;
+
 
 /**
  * Created by codecadet on 08/06/2018.
@@ -13,31 +15,58 @@ public class Menu implements Keyboardable {
     private Picture[] extraMenuPictures;
     private int currentMenu;
     private boolean extraMenuState = false;
+    private Game game;
 
-    public Menu() {
+    public Menu(Game game) {
+        this.game = game;
         loadResources();
     }
 
-    public void start() {
-        System.out.println("---> start game <---");
+    public Picture[] getMenuPictures() {
+        return menuPictures;
     }
 
-    private void loadResources() {
+    public void start() throws InterruptedException {
+
+
+      game.initGame();
+
+
+    }
+
+    public void deleteImages(){
+        for(Picture pic : extraMenuPictures){
+            System.out.println("delete2");
+            pic.delete();
+        }
+        for(Picture pic: menuPictures){
+            System.out.println("delete");
+            pic.delete();
+        }
+    }
+
+
+
+
+    public void loadResources() {
         /*
         * Loading Extra Menu Images
         * */
         extraMenuPictures = new Picture[2];
         for (int i = 0; i < extraMenuPictures.length; i++) {
-            extraMenuPictures[i] = new Picture(10, 10, "resources/menu/extra_" + i + ".jpg");
+            System.out.println(i);
+            extraMenuPictures[i] = new Picture(0, 0, "resources/menu/extra_" + i + ".jpg");
         }
         /*
         * Loading Menu Images
         * */
         menuPictures = new Picture[3];
         for (int i = 0; i < menuPictures.length; i++) {
-            menuPictures[i] = new Picture(10, 10, "resources/menu/menu_" + i + ".jpg");
+            System.out.println("2"+i);
+            menuPictures[i] = new Picture(0, 0, "resources/menu/menu_" + i + ".jpg");
         }
-        menuPictures[0].draw();
+        System.out.println("AKI");
+       // menuPictures[0].draw();
         currentMenu = 0;
     }
 
@@ -47,8 +76,10 @@ public class Menu implements Keyboardable {
         if (currentMenu == 2) {
             return;
         }
+        System.out.println(currentMenu);
         menuPictures[currentMenu].delete();
-        currentMenu++;
+        currentMenu = currentMenu + 1;
+        System.out.println(currentMenu);
         menuPictures[currentMenu].draw();
     }
 
@@ -58,7 +89,7 @@ public class Menu implements Keyboardable {
             return;
         }
         menuPictures[currentMenu].delete();
-        currentMenu--;
+        currentMenu = currentMenu - 1;
         menuPictures[currentMenu].draw();
     }
 
@@ -76,6 +107,13 @@ public class Menu implements Keyboardable {
     public void keySpace() {
         if (currentMenu == 0) {
             System.out.println("START GAME");
+
+            try {
+
+                start();
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
         if (currentMenu == 1) {
@@ -103,9 +141,26 @@ public class Menu implements Keyboardable {
     }
 
     @Override
-    public void othersRelease() {
+    public void keyDownRelease() {
 
     }
+
+    @Override
+    public void keyUpRelease() {
+
+    }
+
+    @Override
+    public void keyLeftRelease() {
+
+    }
+
+    @Override
+    public void keyRightRelease() {
+
+    }
+
+
 }
 
 

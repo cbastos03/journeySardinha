@@ -2,6 +2,7 @@ package org.academiadecodigo.bootcamp.keyboard;
 
 import org.academiadecodigo.bootcamp.Game;
 import org.academiadecodigo.bootcamp.keyboard.Keyboardable;
+import org.academiadecodigo.bootcamp.player.Player;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -117,8 +118,18 @@ public class MyKeyboard implements KeyboardHandler {
             case KeyboardEvent.KEY_SPACE:
                 keyboardable.keySpaceRelease();
                 break;
-            default:
-                keyboardable.othersRelease();
+            case KeyboardEvent.KEY_LEFT:
+                keyboardable.keyLeftRelease();
+                break;
+            case KeyboardEvent.KEY_RIGHT:
+                keyboardable.keyRightRelease();
+                break;
+            case KeyboardEvent.KEY_UP:
+                keyboardable.keyUpRelease();
+                break;
+            case KeyboardEvent.KEY_DOWN:
+                keyboardable.keyDownRelease();
+                break;
 
         }
 
