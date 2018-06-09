@@ -16,11 +16,14 @@ public abstract class Enemies {
     private EnemiesType enemiesType;
     private int directionX;
     private int directionY;
+    private boolean isSleep = true;
+    private int enemyIndexPic;
 
     public Enemies(int speed, EnemiesType enemiesType, Grid grid) {
         this.speed = speed;
         this.enemiesType = enemiesType;
         this.grid = grid;
+        this.enemyIndexPic = (int) (Math.random() * 7);
     }
 
     public void setDirectionX(int directionX) {
@@ -69,4 +72,15 @@ public abstract class Enemies {
 
     public abstract void accelerate();
 
+    public boolean isSleep() {
+        return isSleep;
+    }
+
+    public void setSleep() {
+        isSleep = false;
+    }
+
+    public int getEnemyIndexPic() {
+        return enemyIndexPic;
+    }
 }

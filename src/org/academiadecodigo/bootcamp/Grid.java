@@ -56,6 +56,7 @@ public class Grid {
             ground[i].draw();
 
         }
+        canvas.draw();
         ocean.draw();
     }
 
@@ -148,6 +149,14 @@ public class Grid {
             changeGround();
         }
     }
+
+    public void removeBackground(){
+
+        for(Picture c: backgrounds){
+            c.delete();
+        }
+    }
+
 
     public void moveAnimations(){
 
