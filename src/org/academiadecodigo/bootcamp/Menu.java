@@ -16,23 +16,25 @@ public class Menu implements Keyboardable {
     private int currentMenu;
     private boolean extraMenuState = false;
     private Game game;
+    private boolean inMenu;
 
     public Menu(Game game) {
         this.game = game;
         loadResources();
+        inMenu = true;
     }
 
-    public Picture[] getMenuPictures() {
-        return menuPictures;
+    public boolean isInMenu() {
+        return inMenu;
     }
 
-    public void start() throws InterruptedException {
+    public void start() {
 
-
-      game.initGame();
-
+        deleteImages();
+      inMenu = false;
 
     }
+
 
     public void deleteImages(){
         for(Picture pic : extraMenuPictures){
@@ -43,6 +45,7 @@ public class Menu implements Keyboardable {
             System.out.println("delete");
             pic.delete();
         }
+        System.out.println("pictures deleted");
     }
 
 
@@ -62,11 +65,11 @@ public class Menu implements Keyboardable {
         * */
         menuPictures = new Picture[3];
         for (int i = 0; i < menuPictures.length; i++) {
-            System.out.println("2"+i);
+            System.out.println("2-"+i);
             menuPictures[i] = new Picture(0, 0, "resources/menu/menu_" + i + ".jpg");
         }
         System.out.println("AKI");
-       // menuPictures[0].draw();
+        menuPictures[0].draw();
         currentMenu = 0;
     }
 
@@ -107,13 +110,8 @@ public class Menu implements Keyboardable {
     public void keySpace() {
         if (currentMenu == 0) {
             System.out.println("START GAME");
+            start();
 
-            try {
-
-                start();
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
         }
 
         if (currentMenu == 1) {

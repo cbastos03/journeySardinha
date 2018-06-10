@@ -27,10 +27,12 @@ public class Grid {
     public Grid(int width, int height) {
 
         this.canvas = new Rectangle(PADDING,PADDING,width,height);
+        //canvas.delete();
 
         for (int i = 0; i <backgrounds.length ; i++) {
 
             backgrounds[i] = new Picture(PADDING,PADDING,"resources/grid/backgrounds/background" + i + ".jpg");
+            System.out.println("drawing"+i);
 
         }
 
@@ -56,7 +58,7 @@ public class Grid {
             ground[i].draw();
 
         }
-        canvas.draw();
+        //canvas.draw();
         ocean.draw();
     }
 

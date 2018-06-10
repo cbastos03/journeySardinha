@@ -22,25 +22,30 @@ public class Game {
     private MyKeyboard keyboard;
     private Menu menu;
 
-    public Game(){
+    public Game() throws InterruptedException {
         keyboard = new MyKeyboard(this);
+
         initMenu();
     }
 
 
-    public void initMenu(){
+    public void initMenu() {
         menu = new Menu(this);
         keyboard.setKeyboardable(menu);
-        menu.loadResources();
+
+        while (menu.isInMenu()) {
+            System.out.println("olaa");
+        }
+        try {
+            initGame();
+
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
     public void initGame() throws InterruptedException {
-
-        //menu.getMenuPictures()[0].delete();
-
-        menu.deleteImages();
-
 
         grid = new Grid(1024, 576);
 
@@ -49,9 +54,9 @@ public class Game {
         Levels levels = new Levels();
 
 
-        levels.level(20,1500);
+        levels.level(20, 1500);
 
-        if(collisionDetector.isCollision()){
+        if (collisionDetector.isCollision()) {
             return;
         }
         grid.makeWin();
@@ -60,7 +65,7 @@ public class Game {
         currentLevel++;
         levels.level(40, 300);
 
-        if(collisionDetector.isCollision()){
+        if (collisionDetector.isCollision()) {
             return;
         }
 
@@ -74,7 +79,6 @@ public class Game {
     }
 
 
-
     private class AwakingEnemies {
 
         private int enemiesAwake = 0;
@@ -84,7 +88,7 @@ public class Game {
             enemy.setSleep();
             enemiesAwake++;
 
-            if(enemiesAwake> 3 && currentLevel !=3){
+            if (enemiesAwake > 3 && currentLevel != 3) {
                 grid.removeBackground();
 
             }
@@ -92,12 +96,12 @@ public class Game {
         }
     }
 
-    private class Levels{
+    private class Levels {
 
         private boolean isOver = false;
         private int counter = 0;
 
-        public void reload(int numOfEnemies){
+        public void reload(int numOfEnemies) {
 
 
             player = factory.getPlayer(grid);
@@ -115,13 +119,13 @@ public class Game {
             awakingEnemies.awake(enemies[0]);
         }
 
-        public void levelClean(int level){
-            for(Enemies enemy : enemies){
+        public void levelClean(int level) {
+            for (Enemies enemy : enemies) {
                 enemy.getPicture().delete();
             }
             awakingEnemies.enemiesAwake = 0;
             player.getPicture().delete();
-            grid.changeBackground(level+1);
+            grid.changeBackground(level + 1);
             grid.removeWin();
 
         }
@@ -135,7 +139,6 @@ public class Game {
 
             while (!collisionDetector.check() && !isOver) {
 
-                Thread.sleep(50);
 
                 grid.moveAnimations();
                 grid.moveGround();
@@ -180,6 +183,7 @@ public class Game {
                     }
                 }
 
+                Thread.sleep(50);
             }
 
         }
