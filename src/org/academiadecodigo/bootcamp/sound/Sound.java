@@ -1,4 +1,5 @@
 package org.academiadecodigo.bootcamp.sound;
+
 import java.io.*;
 import javax.sound.sampled.*;
 
@@ -9,12 +10,16 @@ import javax.sound.sampled.*;
  */
 public class Sound {
 
-   static Clip clip;
+    static Clip clip;
+
+
+
+
 
     public static void play(String pathname, int loop) {
         try {
             clip =  AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File("resources/sounds/" + pathname + ".wav")));
+            clip.open(AudioSystem.getAudioInputStream(new File(pathname)));
             clip.start();
             clip.loop(loop);
         } catch (Exception e) {
@@ -25,5 +30,6 @@ public class Sound {
     public static void stop() {
         clip.stop();
     }
+
 
 }

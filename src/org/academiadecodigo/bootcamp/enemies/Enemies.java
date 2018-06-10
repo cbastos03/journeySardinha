@@ -34,8 +34,6 @@ public abstract class Enemies {
         this.directionY = directionY;
     }
 
-    public abstract void move();
-
     public Picture getPicture() {
         return picture;
     }

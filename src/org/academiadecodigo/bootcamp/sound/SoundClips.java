@@ -5,10 +5,12 @@ package org.academiadecodigo.bootcamp.sound;
  */
 public enum SoundClips {
 
-    MENU("menu"),
-    FUNDAO("level_0"),
-    LISBOA("level_1"),
-    MARROCOS("level_2");
+    MENU("resources/menu.wav"),
+    FUNDAO("resources/level_0.wav"),
+    LISBOA("resources/level_1.wav"),
+    MARROCOS("resources/level_2.wav"),
+    DIES("resources/died.wav"),
+    PUMA("resources/peafowl_sound.wav");
 
     String file;
 

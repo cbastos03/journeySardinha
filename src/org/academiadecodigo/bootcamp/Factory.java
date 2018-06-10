@@ -1,8 +1,6 @@
 package org.academiadecodigo.bootcamp;
 
-import org.academiadecodigo.bootcamp.enemies.Enemies;
-import org.academiadecodigo.bootcamp.enemies.EnemiesMoving;
-import org.academiadecodigo.bootcamp.enemies.EnemiesStraight;
+import org.academiadecodigo.bootcamp.enemies.*;
 import org.academiadecodigo.bootcamp.player.Player;
 
 /**
@@ -10,28 +8,43 @@ import org.academiadecodigo.bootcamp.player.Player;
  */
 public class Factory {
 
+    public Enemies generateEnemies(Grid grid, int level) {
 
-    public Enemies generateEnemies(Grid grid) {
-        double random = Math.random();
+    double random = Math.random();
 
-        if (random > 0.3) {
-            return getMovingEnemy(grid);
-        } else {
-            return getStraightEnemy(grid);
-        }
+
+        if (random > 0.7) {
+        return getMovingEnemy(grid);
     }
+        if(random > 0.4){
+        return getStraightEnemy(grid);
+    }
+
+       return getCurvingEnemy(grid);
+}
 
 
     public Enemies getMovingEnemy(Grid grid) {
-        return new EnemiesMoving((int) (Math.random() * 5), grid);
+        return new EnemiesMoving(2, grid);
     }
 
     public Enemies getStraightEnemy(Grid grid) {
-        return new EnemiesStraight((int) (Math.random() * 5), grid);
+        return new EnemiesStraight(3, grid);
     }
+
+    public Enemies getCurvingEnemy(Grid grid) {
+        return new EnemiesCurving(2, grid);
+
+    }
+
+
 
     public Player getPlayer(Grid grid){
         return new Player(grid);
+    }
+
+    public Enemies getBoss(Grid grid){
+        return new EnemiesBoss(1, grid);
     }
 
 

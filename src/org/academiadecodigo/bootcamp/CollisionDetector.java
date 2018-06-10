@@ -19,13 +19,15 @@ public class CollisionDetector {
 
     private double xmediumPlayer;
     private double ymediumPlayer;
-    private double radiusPlayer;
+    private double radiusxPlayer;
+    private double radiusyPlayer;
 
     private double xmediumEnemy;
     private double ymediumEnemy;
-    private double radiusEnemy;
+    private double radiusxEnemy;
+    private double radiusyEnemy;
 
-    private double centersDistance;
+
 
     public boolean isCollision() {
         return collision;
@@ -36,22 +38,25 @@ public class CollisionDetector {
 
         xmediumPlayer = player.getPicture().getX() + (player.getPicture().getWidth() / 2);
         ymediumPlayer = player.getPicture().getY() + (player.getPicture().getHeight() / 2);
-        radiusPlayer = player.getPicture().getWidth() / 2;
+        radiusxPlayer = player.getPicture().getWidth() / 2;
+        radiusyPlayer = player.getPicture().getHeight() / 2;
 
         for (Enemies enemy : enemies) {
 
             xmediumEnemy = enemy.getPicture().getX() + (enemy.getPicture().getWidth() / 2);
-            ymediumEnemy = enemy.getPicture().getY() +(enemy.getPicture().getHeight() / 2);
-            radiusEnemy = enemy.getPicture().getWidth() / 2;
+            ymediumEnemy = enemy.getPicture().getY() + (enemy.getPicture().getHeight() / 2);
+            radiusxEnemy = enemy.getPicture().getWidth() / 2;
+            radiusyEnemy = enemy.getPicture().getHeight() / 2;
 
-            centersDistance = centerDistance(enemy);
 
-            if(centersDistance < (radiusPlayer + radiusEnemy)){
+
+            if((xDistance(enemy) < (radiusxPlayer + radiusxEnemy)) && (yDistance(enemy) < (radiusyPlayer + radiusyEnemy))){
                 collision = true;
                 player.setIsdead(true);
                 player.getPicture().load("resources/player/DeadFish-RIGHT.png");
                 return true;
             }
+
 
         }
 
@@ -59,17 +64,15 @@ public class CollisionDetector {
 
     }
 
-    public double centerDistance(Enemies enemy) {
 
-        double cateto1 = xmediumPlayer - xmediumEnemy;
-
-        double cateto2 = ymediumPlayer - ymediumEnemy;
-
-        double hipotenusa = Math.sqrt(Math.pow(cateto1,2) + Math.pow(cateto2,2));
-
-        return hipotenusa;
-
+    public double xDistance(Enemies enemy) {
+        return Math.abs(xmediumPlayer - xmediumEnemy);
     }
+
+    public double yDistance(Enemies enemy) {
+        return Math.abs(ymediumPlayer - ymediumEnemy);
+    }
+
 
 
 }

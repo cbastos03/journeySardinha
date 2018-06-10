@@ -5,5 +5,7 @@ package org.academiadecodigo.bootcamp.enemies;
  */
 public enum EnemiesType {
     MOVING,
-    STRAIGHT
+    STRAIGHT,
+    BOSS,
+    CURVING
 }

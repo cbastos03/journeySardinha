@@ -24,7 +24,7 @@ public class Player implements Keyboardable {
         picture.draw();
 
         directions = new boolean[4];
-        speedStandard = 20;
+        speedStandard = 10;
         for (boolean status : directions) {
             status = false;
         }
@@ -139,12 +139,12 @@ public class Player implements Keyboardable {
 
     @Override
     public void keySpace() {
-        speedStandard = 40;
+        speedStandard = 20;
     }
 
     @Override
     public void keySpaceRelease() {
-        speedStandard = 20;
+        speedStandard = 10;
     }
 
     @Override

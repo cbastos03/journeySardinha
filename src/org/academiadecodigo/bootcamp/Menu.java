@@ -1,9 +1,10 @@
 package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.bootcamp.keyboard.Keyboardable;
+import org.academiadecodigo.bootcamp.sound.Sound;
+import org.academiadecodigo.bootcamp.sound.SoundClips;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import java.io.IOException;
 
 
 /**
@@ -15,11 +16,9 @@ public class Menu implements Keyboardable {
     private Picture[] extraMenuPictures;
     private int currentMenu;
     private boolean extraMenuState = false;
-    private Game game;
     private boolean inMenu;
 
-    public Menu(Game game) {
-        this.game = game;
+    public Menu() {
         loadResources();
         inMenu = true;
     }
@@ -29,26 +28,10 @@ public class Menu implements Keyboardable {
     }
 
     public void start() {
-
-        deleteImages();
-      inMenu = false;
+        Sound.stop();
+        inMenu = false;
 
     }
-
-
-    public void deleteImages(){
-        for(Picture pic : extraMenuPictures){
-            System.out.println("delete2");
-            pic.delete();
-        }
-        for(Picture pic: menuPictures){
-            System.out.println("delete");
-            pic.delete();
-        }
-        System.out.println("pictures deleted");
-    }
-
-
 
 
     public void loadResources() {
@@ -65,12 +48,15 @@ public class Menu implements Keyboardable {
         * */
         menuPictures = new Picture[3];
         for (int i = 0; i < menuPictures.length; i++) {
-            System.out.println("2-"+i);
+            System.out.println("2-" + i);
             menuPictures[i] = new Picture(0, 0, "resources/menu/menu_" + i + ".jpg");
         }
         System.out.println("AKI");
         menuPictures[0].draw();
         currentMenu = 0;
+
+        Sound.play(SoundClips.MENU.getFile(),1000000000);
+
     }
 
 
@@ -109,6 +95,7 @@ public class Menu implements Keyboardable {
     @Override
     public void keySpace() {
         if (currentMenu == 0) {
+            menuPictures[currentMenu].delete();
             System.out.println("START GAME");
             start();
 
@@ -121,7 +108,6 @@ public class Menu implements Keyboardable {
             extraMenuPictures[0].draw();
         }
         if (currentMenu == 2) {
-            System.out.println("CREDITS");
             extraMenuState = true;
             menuPictures[currentMenu].delete();
             extraMenuPictures[1].draw();
@@ -130,7 +116,6 @@ public class Menu implements Keyboardable {
 
     public void keySpaceRelease() {
         if (extraMenuState) {
-            System.out.println("space released");
             extraMenuPictures[0].delete();
             extraMenuPictures[1].delete();
             menuPictures[currentMenu].draw();
